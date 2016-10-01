@@ -1,0 +1,1 @@
+# vuls_autoscan_for_zabbix
