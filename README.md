@@ -6,13 +6,19 @@ vuls_autoscan_for_zabbix can work together the contents [Vuls](https://github.co
 
 vuls_autoscan_for_zabbix is performed as follows.
 
-> Vulnerability information (NVD · JVN) update
+> 1. Vulnerability information (NVD · JVN) update
+
 >  ↓
-> Vuls scan
+
+> 2. Vuls scan
+
 >  ↓
-> Result cooperation to Zabbix
+
+> 3. Result cooperation to Zabbix
+
 >  ↓
-> Rotation of Vuls JSON file
+
+> 4. Rotation of Vuls JSON file
 
 
 ## Installation
@@ -47,8 +53,11 @@ $ yum install zabbix-sender
 ```
 
 ## Setting Zabbix
+
 Download the "Template_Vuls.xml" and imported into the Zabbix.
+
 Link to the scanned host of Vuls.
+
 Requirements　Zabbix >= 3.0.
 
 
