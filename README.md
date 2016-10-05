@@ -65,5 +65,5 @@ Requirements　Zabbix >= 3.0.
 
 
 ```bash:/etc/crontab
-0 13 * * * vuls-user bash -l /opt/vuls/vuls_autoscan_for_zabbix.sh > /tmp/vuls.log
+0 13 * * * vuls-user bash -l /opt/vuls/vuls_autoscan_for_zabbix.sh > /tmp/vuls.log 2>&1
 ```
