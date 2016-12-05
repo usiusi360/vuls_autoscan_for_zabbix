@@ -24,10 +24,12 @@ update() {
       my_logger "[INFO] Update success. [${target}]"
       break
     else
-      my_logger "[INFO] Update fail. retry... [${target}] (count=$i)"
+      my_logger "[INFO] Update retry. [${target}] (count=$i)"
       sleep 5
     fi
   done
+  my_logger "[ERROR] Update retry over. [${target}] (count=$i)"    
+  
 }
 
 scan(){
