@@ -45,11 +45,11 @@ ZABBIX_SERVER="localhost" 　←★ Change
 ---------
 ```
 
-If you zabbix-sender is not installed, you must install.
+If you jq and zabbix-sender is not installed, you must install.
 
 
 ```
-$ yum install zabbix-sender
+$ yum install jq zabbix-sender
 ```
 
 ## Setting Zabbix
