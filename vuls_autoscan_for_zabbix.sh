@@ -6,6 +6,7 @@ ZABBIX_SERVER="localhost"
 
 VULS_HOME=`cd $(dirname $0) && pwd`
 VULS_LOG="${VULS_HOME}/results"
+RETRY=3
 
 my_logger() {
     local priority="user.info"
@@ -24,12 +25,14 @@ update() {
       my_logger "[INFO] Update success. [${target}]"
       break
     else
-      my_logger "[INFO] Update retry. [${target}] (count=$i)"
-      sleep 5
+      if [ $i -lt $RETRY ];then
+          my_logger "[INFO] Update retry. [${target}] (count=$i)"
+          sleep 5
+      else
+          my_logger "[ERROR] Update retry over. [${target}] (count=$i)"
+      fi      
     fi
   done
-  my_logger "[ERROR] Update retry over. [${target}] (count=$i)"    
-  
 }
 
 scan(){
