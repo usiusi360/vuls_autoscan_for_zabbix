@@ -67,3 +67,10 @@ Requirements　Zabbix >= 3.0.
 ```bash:/etc/crontab
 0 13 * * * vuls-user bash -l /opt/vuls/vuls_autoscan_for_zabbix.sh > /tmp/vuls.log 2>&1
 ```
+## FAQ
+Jq in EPEL is old (ver1.3).
+
+Ex) Jq '[.KnownCves []?
+
+Because "?" Can not be used, an error occurs.
+You need to download and replace the ver1.5 binary at https://stedolan.github.io/jq/download/
