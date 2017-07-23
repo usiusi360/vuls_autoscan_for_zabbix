@@ -85,7 +85,7 @@ scan
 send_zabbix
 
 ## rotate ##
-rotate
+#rotate
 
 exit 0
 
