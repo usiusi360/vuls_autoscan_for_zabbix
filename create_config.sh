@@ -1,13 +1,12 @@
 #!/bin/bash
 
-ZABBIX_SERVER="zabbix-server"
+ZABBIX_SERVER="localhost"
 ZABBIX_USER="Admin"
 ZABBIX_PASS="hogehoge"
 
-VULS_HOME=`cd $(dirname $0) && pwd`
-
 ###########################
 
+VULS_HOME=`cd $(dirname $0) && pwd`
 url="http://${ZABBIX_SERVER}/zabbix/api_jsonrpc.php"
 curl_comm='curl -s -X POST -H Content-Type:application/json-rpc --data @_tmp_json'
 

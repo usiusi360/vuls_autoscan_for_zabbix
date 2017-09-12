@@ -6,43 +6,45 @@ vuls_autoscan_for_zabbix can work together the contents [Vuls](https://github.co
 
 vuls_autoscan_for_zabbix is performed as follows.
 
-> 1. Vulnerability information (NVD · JVN) update
+* create_config.sh
+1. Automatically generate config.toml from Zabbix
 
->  ↓
-
-> 2. Vuls scan
-
->  ↓
-
-> 3. Result cooperation to Zabbix
-
->  ↓
-
-> 4. Rotation of Vuls JSON file
+* vuls_autoscan_for_zabbix.sh
+2. Vulnerability information (NVD / JVN / OVAL) update
+3. Vuls scan & report
+4. Result cooperation to Zabbix
+5. Rotation of Vuls JSON file
 
 
 ## Installation
 
-### Place the shell script
-Put "vuls_scan_to_zabbix.sh" to "Home Folder" on Vuls.
+Put shell script to "Home Folder" on Vuls.
 And set the execution authority.
 
 
 ```
 $ cd /opt/vuls
+$ wget https://github.com/usiusi360/vuls_autoscan_for_zabbix/create_config.sh
 $ wget https://github.com/usiusi360/vuls_autoscan_for_zabbix/vuls_autoscan_for_zabbix.sh
-$ chmod 700 vuls_autoscan_for_zabbix.sh
+$ chmod 700 create_config.sh vuls_autoscan_for_zabbix.sh
 ```
 
-Changed to match the address of the Zabbix server in the script to the environment.
+
+Change the address, ID, and password of the Zabbix server in the script according to the environment.
+
+```
+$ vi create_config.sh
+---------
+ZABBIX_SERVER="localhost"
+ZABBIX_USER="Admin"
+ZABBIX_PASS="hogehoge"
+```
 
 
 ```
 $ vi vuls_autoscan_for_zabbix.sh
 ---------
-#!/bin/bash
-ZABBIX_SERVER="localhost" 　←★ Change
----------
+ZABBIX_SERVER="localhost"
 ```
 
 If you jq and zabbix-sender is not installed, you must install.
@@ -50,6 +52,42 @@ If you jq and zabbix-sender is not installed, you must install.
 
 ```
 $ yum install jq zabbix-sender
+```
+
+## Create config.toml
+
+Create a master file.
+
+```
+$ cd /opt/vuls
+$ vi config.toml.master
+[default]
+port        = "22"
+user        = "username"
+keyPath     = "/home/username/.ssh/id_rsa"
+
+$ chmod 700 create_config.sh
+```
+
+
+Running create_config.sh will generate config.toml.
+
+```
+$ ./create_config.sh
+
+$ cat config.toml
+[default]
+port        = "22"
+user        = "username"
+keyPath     = "/home/username/.ssh/id_rsa"
+
+[servers]
+[servers.web001]
+host        = "192.168.0.1"
+
+[servers.app001]
+host        = "192.168.0.2"
+　　　～～～～
 ```
 
 ## Setting Zabbix
@@ -67,6 +105,7 @@ Requirements　Zabbix >= 3.0.
 ```bash:/etc/crontab
 0 13 * * * vuls-user bash -l /opt/vuls/vuls_autoscan_for_zabbix.sh > /tmp/vuls.log 2>&1
 ```
+
 ## FAQ
 Jq in EPEL is old (ver1.3).
 
