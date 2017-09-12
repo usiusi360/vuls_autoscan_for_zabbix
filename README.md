@@ -12,7 +12,7 @@ vuls_autoscan_for_zabbix is performed as follows.
 * vuls_autoscan_for_zabbix.sh
 2. Vulnerability information (NVD / JVN / OVAL) update
 3. Vuls scan & report
-4. Result cooperation to Zabbix
+4. Result cooperation to Zabbix (The number of detected CVEID and the maximum value of the score of NVD are sent to zabbix.)
 5. Rotation of Vuls JSON file
 
 
@@ -65,8 +65,6 @@ $ vi config.toml.master
 port        = "22"
 user        = "username"
 keyPath     = "/home/username/.ssh/id_rsa"
-
-$ chmod 700 create_config.sh
 ```
 
 
@@ -99,12 +97,32 @@ Link to the scanned host of Vuls.
 Requirements　Zabbix >= 3.0.
 
 
-## Setting cron
-
+## Execute with cron
 
 ```bash:/etc/crontab
 0 13 * * * vuls-user bash -l /opt/vuls/vuls_autoscan_for_zabbix.sh > /tmp/vuls.log 2>&1
 ```
+
+
+## Other
+
+To update oval's data, uncomment it
+
+```
+## update oval ##
+#update_oval redhat "5 6 7"
+#update_oval debian "7 8 9 10"
+#update_oval ubuntu "12 14 16"
+#update_oval oracle
+```
+
+To rotate files, uncomment out
+
+```
+## rotate ##
+#rotate
+```
+
 
 ## FAQ
 Jq in EPEL is old (ver1.3).
