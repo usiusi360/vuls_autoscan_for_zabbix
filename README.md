@@ -24,8 +24,8 @@ And set the execution authority.
 
 ```
 $ cd /opt/vuls
-$ wget https://github.com/usiusi360/vuls_autoscan_for_zabbix/create_config.sh
-$ wget https://github.com/usiusi360/vuls_autoscan_for_zabbix/vuls_autoscan_for_zabbix.sh
+$ wget https://github.com/usiusi360/vuls_autoscan_for_zabbix/raw/master/create_config.sh
+$ wget https://github.com/usiusi360/vuls_autoscan_for_zabbix/raw/master/vuls_autoscan_for_zabbix.sh
 $ chmod 700 create_config.sh vuls_autoscan_for_zabbix.sh
 ```
 
