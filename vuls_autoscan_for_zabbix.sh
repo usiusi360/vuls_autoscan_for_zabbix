@@ -92,8 +92,8 @@ send_zabbix(){
     if [ "${TARGET_NAME}" == "all" ]; then
       continue
     fi
-      zabbix_sender -z ${ZABBIX_SERVER} -s ${TARGET_NAME} -k nvd_count -o `cat $filepath | jq '.ScannedCves? | length'`
-      zabbix_sender -z ${ZABBIX_SERVER} -s ${TARGET_NAME} -k nvd_max -o `cat $filepath | jq '[.ScannedCves[] | .CveContents.nvd.Cvss2Score]+[0] | max'`
+      zabbix_sender -z ${ZABBIX_SERVER} -s ${TARGET_NAME} -k nvd_count -o `cat $filepath | jq '.scannedCves? | length'`
+      zabbix_sender -z ${ZABBIX_SERVER} -s ${TARGET_NAME} -k nvd_max -o `cat $filepath | jq '[.scannedCves[] | .cveContents.nvd.cvss2Score]+[0] | max'`
    done
 }
 
