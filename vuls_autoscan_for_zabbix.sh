@@ -9,6 +9,7 @@ PAST_YEAR=2
 
 VULS_HOME=`cd $(dirname $0) && pwd`
 VULS_LOG="${VULS_HOME}/results"
+VULS_CONFIG="-config=${VULS_HOME}/config.toml
 
 my_logger() {
     local priority="user.info"
@@ -65,7 +66,7 @@ update_oval() {
 }
 
 scan(){
-  vuls scan -deep
+  vuls scan ${VULS_CONFIG}
     if [ $? -eq 0 ];then
       my_logger "[INFO] Scan success."
     else
@@ -76,7 +77,7 @@ scan(){
 
 
 report(){
-  vuls report -format-json
+  vuls report ${VULS_CONFIG} -format-json
     if [ $? -eq 0 ];then
       my_logger "[INFO] Scan success."
     else
@@ -92,8 +93,8 @@ send_zabbix(){
     if [ "${TARGET_NAME}" == "all" ]; then
       continue
     fi
-      zabbix_sender -z ${ZABBIX_SERVER} -s ${TARGET_NAME} -k nvd_count -o `cat $filepath | jq '.ScannedCves? | length'`
-      zabbix_sender -z ${ZABBIX_SERVER} -s ${TARGET_NAME} -k nvd_max -o `cat $filepath | jq '[.ScannedCves[] | .CveContents.nvd.Cvss2Score]+[0] | max'`
+      zabbix_sender -z ${ZABBIX_SERVER} -s ${TARGET_NAME} -k nvd_count -o `cat $filepath | jq '.scannedCves? | length'`
+      zabbix_sender -z ${ZABBIX_SERVER} -s ${TARGET_NAME} -k nvd_max -o `cat $filepath | jq '[.scannedCves[] | .cveContents.nvd.cvss2Score]+[0] | max'`
    done
 }
 
